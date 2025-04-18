@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         calculateBtn.disabled = true;
         calculateBtn.textContent = '计算中...';
 
-        fetch('/upload', {
+        fetch('/api/upload', {
             method: 'POST',
             body: formData
         })

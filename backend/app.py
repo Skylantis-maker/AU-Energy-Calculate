@@ -9,7 +9,7 @@ from flask_talisman import Talisman
 
 app = Flask(__name__, 
             static_folder='../frontend',
-            static_url_path='/static')
+            static_url_path='')
 
 # 添加请求频率限制
 limiter = Limiter(
@@ -26,7 +26,7 @@ Talisman(app, force_https=True, content_security_policy={
 })
 
 # Configure upload folder
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = '/tmp/uploads'  # 使用 Vercel 的临时目录
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -41,11 +41,11 @@ def allowed_file(filename):
 def serve_frontend():
     return send_from_directory(app.static_folder, 'index.html')
 
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    return send_from_directory(app.static_folder, filename)
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
 
-@app.route('/upload', methods=['POST'])
+@app.route('/api/upload', methods=['POST'])
 @limiter.limit("10 per minute")  # 限制上传频率
 def upload_file():
     if 'file' not in request.files:
