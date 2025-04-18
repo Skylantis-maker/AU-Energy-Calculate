@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>储能收益优化系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1 class="title">储能收益优化</h1>
+            <p class="subtitle">计算最优充放电时段以获取最大收益</p>
+        </header>
+
+        <main class="main-content">
+            <section class="upload-section card">
+                <div class="upload-area" id="dropZone">
+                    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" hidden>
+                    <div class="upload-content">
+                        <img src="upload-icon.svg" alt="Upload" class="upload-icon">
+                        <p class="upload-text">拖拽文件到此处或</p>
+                        <button class="btn btn-primary upload-btn" onclick="document.getElementById('fileInput').click()">
+                            浏览文件
+                        </button>
+                        <p class="file-info" id="fileInfo"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="strategy-section card">
+                <h2 class="section-title">选择策略</h2>
+                <div class="strategy-options">
+                    <label class="strategy-option">
+                        <input type="radio" name="strategy" value="one_charge_one_discharge" checked>
+                        <span class="strategy-label">一充一放</span>
+                    </label>
+                    <label class="strategy-option">
+                        <input type="radio" name="strategy" value="two_charge_two_discharge">
+                        <span class="strategy-label">两充两放</span>
+                    </label>
+                </div>
+                <button class="btn btn-primary calculate-btn" id="calculateBtn" disabled>
+                    计算收益
+                </button>
+            </section>
+
+            <section class="results-section card" id="resultsSection" style="display: none;">
+                <h2 class="section-title">计算结果</h2>
+                <div class="total-profit-card card">
+                    <h3 class="profit-title">月度总收益</h3>
+                    <p class="profit-amount" id="totalProfit">$0.00 AUD</p>
+                </div>
+                
+                <div class="charts-container">
+                    <div id="priceChart" class="chart-container"></div>
+                    <div id="profitChart" class="chart-container"></div>
+                </div>
+
+                <div class="daily-results">
+                    <h3 class="section-title">每日收益明细</h3>
+                    <div class="table-container">
+                        <table id="dailyResults" class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>充电时段</th>
+                                    <th>充电均价</th>
+                                    <th>放电时段</th>
+                                    <th>放电均价</th>
+                                    <th>收益 (AUD)</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <p class="footer-text">© 2024 储能收益优化系统</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
