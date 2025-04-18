@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import os
 from werkzeug.utils import secure_filename
 import pandas as pd
-from utils import read_price_data, calculate_monthly_profit
+from .utils import read_price_data, calculate_monthly_profit
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_talisman import Talisman
@@ -58,7 +58,7 @@ def upload_file():
     if file and allowed_file(file.filename):
         try:
             filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
             
             # 保存文件
             file.save(filepath)
