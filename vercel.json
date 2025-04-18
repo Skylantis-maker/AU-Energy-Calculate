@@ -3,7 +3,7 @@
     "builds": [
         {
             "src": "api/index.py",
-            "use": "@vercel/python"
+            "use": "@vercel/python@3.1.30"
         },
         {
             "src": "frontend/**",
@@ -19,5 +19,8 @@
             "src": "/(.*)",
             "dest": "frontend/$1"
         }
-    ]
+    ],
+    "env": {
+        "PYTHONPATH": "."
+    }
 } 

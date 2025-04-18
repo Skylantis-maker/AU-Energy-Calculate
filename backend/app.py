@@ -26,7 +26,7 @@ Talisman(app, force_https=True, content_security_policy={
 })
 
 # Configure upload folder
-UPLOAD_FOLDER = '/tmp/uploads'  # 使用 Vercel 的临时目录
+UPLOAD_FOLDER = '/tmp'  # 使用 Vercel 的临时目录
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
